@@ -1,92 +1,78 @@
-/* Reset mặc định */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
+/* Reset */
+* { margin: 0; padding: 0; box-sizing: border-box; }
 body {
   font-family: Arial, sans-serif;
-  background: #f4f4f9;
+  background: #f5f6fa;
   color: #333;
   line-height: 1.6;
 }
 
-/* Layout chính */
 .container {
   display: flex;
-  max-width: 900px;
-  margin: 40px auto;
+  max-width: 1000px;
+  margin: 30px auto;
   background: #fff;
-  border-radius: 8px;
+  border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
 }
 
-/* Sidebar bên trái */
+/* Sidebar */
 .sidebar {
-  width: 30%;
   background: #2c3e50;
   color: #fff;
   padding: 20px;
+  width: 280px;
+  flex-shrink: 0;
   text-align: center;
 }
-
-.sidebar .avatar {
-  width: 200px;         /* chiều rộng ảnh */
-  height: 200px;        /* chiều cao ảnh */
-  border-radius: 50%;   /* bo tròn thành hình tròn */
-  object-fit: cover;    /* giữ tỉ lệ, cắt gọn */
-  border: 3px solid #ddd; /* viền nhẹ */
-  margin-bottom: 20px;  /* cách nội dung dưới */
-}
-
 .sidebar h2 {
-  margin-bottom: 10px;
+  margin-top: 15px;
 }
-
-.sidebar a {
-  color: #1abc9c;
-  text-decoration: none;
+.sidebar p {
+  font-size: 0.9rem;
+  margin-top: 6px;
 }
-
-.sidebar .info {
-  margin-top: 20px;
-  text-align: left;
-  font-size: 14px;
+.avatar {
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid #fff;
+  margin-top: 10px;
 }
+.info { list-style: none; padding-left: 0; margin-top: 20px; }
+.info li {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin: 8px 0;
+  font-size: 0.9rem;
+}
+.info i { width: 18px; }
 
-/* Nội dung bên phải */
+/* Content */
 .content {
-  width: 70%;
-  padding: 20px;
+  flex: 1;
+  padding: 30px;
 }
-
 .content h2 {
   margin-bottom: 10px;
+  font-size: 1.3rem;
   color: #2c3e50;
   border-bottom: 2px solid #1abc9c;
   display: inline-block;
-  padding-bottom: 3px;
+  padding-bottom: 4px;
   margin-top: 20px;
 }
+.content ul { margin-left: 18px; }
 
-.content ul {
-  margin-left: 20px;
-}
-/* --- (giữ nguyên các đoạn reset, .container, .sidebar, .content, .avatar cũ) --- */
-
-/* ===== Icons trong sidebar ===== */
-.info { list-style: none; padding-left: 0; }
-.info li { display: flex; gap: 8px; align-items: center; margin: 6px 0; }
-.info i { width: 18px; text-align: center; opacity: .9; }
-
-/* ===== Timeline (Kinh nghiệm / Học vấn) ===== */
+/* Timeline */
 .timeline {
   list-style: none;
   position: relative;
   margin-left: 4px;
-  padding-left: 22px;          /* khoảng cho đường dọc */
+  padding-left: 22px;
 }
 .timeline::before {
   content: "";
@@ -97,8 +83,7 @@ body {
   width: 2px;
   background: #e6ebf2;
 }
-
-.tl-item { position: relative; margin: 14px 0 18px; }
+.tl-item { position: relative; margin: 16px 0; }
 .tl-dot {
   position: absolute;
   left: 2px;
@@ -106,7 +91,7 @@ body {
   width: 12px;
   height: 12px;
   border-radius: 50%;
-  background: var(--brand, #1abc9c);
+  background: #1abc9c;
   box-shadow: 0 0 0 4px rgba(26,188,156,0.15);
 }
 .tl-content {
@@ -116,26 +101,30 @@ body {
   padding: 12px 14px;
   box-shadow: 0 1px 6px rgba(0,0,0,.04);
 }
-
 .tl-head {
   display: flex;
   justify-content: space-between;
-  gap: 10px;
   align-items: baseline;
   margin-bottom: 6px;
 }
-.tl-time {
-  color: #6b7a90;
-  font-size: .9rem;
-  white-space: nowrap;
-}
-.tl-bullets { margin-left: 18px; color: #6b7a90; }
-.tl-bullets li { margin: 4px 0; }
+.tl-time { color: #6b7a90; font-size: .9rem; }
 
-/* Mobile tweak */
-@media (max-width: 720px) {
-  .tl-head { flex-direction: column; gap: 2px; }
-  .timeline { padding-left: 18px; }
-  .timeline::before { left: 6px; }
-  .tl-dot { left: 0; }
+/* Responsive Mobile */
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+  }
+  .sidebar {
+    width: 100%;
+    padding: 20px;
+  }
+  .avatar {
+    width: 120px;
+    height: 120px;
+  }
+  .content {
+    width: 100%;
+    padding: 20px;
+  }
+  .tl-head { flex-direction: column; align-items: flex-start; }
 }
