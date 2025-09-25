@@ -74,3 +74,68 @@ body {
 .content ul {
   margin-left: 20px;
 }
+/* --- (giữ nguyên các đoạn reset, .container, .sidebar, .content, .avatar cũ) --- */
+
+/* ===== Icons trong sidebar ===== */
+.info { list-style: none; padding-left: 0; }
+.info li { display: flex; gap: 8px; align-items: center; margin: 6px 0; }
+.info i { width: 18px; text-align: center; opacity: .9; }
+
+/* ===== Timeline (Kinh nghiệm / Học vấn) ===== */
+.timeline {
+  list-style: none;
+  position: relative;
+  margin-left: 4px;
+  padding-left: 22px;          /* khoảng cho đường dọc */
+}
+.timeline::before {
+  content: "";
+  position: absolute;
+  left: 8px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: #e6ebf2;
+}
+
+.tl-item { position: relative; margin: 14px 0 18px; }
+.tl-dot {
+  position: absolute;
+  left: 2px;
+  top: 6px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--brand, #1abc9c);
+  box-shadow: 0 0 0 4px rgba(26,188,156,0.15);
+}
+.tl-content {
+  background: #fff;
+  border: 1px solid #eef0f5;
+  border-radius: 10px;
+  padding: 12px 14px;
+  box-shadow: 0 1px 6px rgba(0,0,0,.04);
+}
+
+.tl-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  align-items: baseline;
+  margin-bottom: 6px;
+}
+.tl-time {
+  color: #6b7a90;
+  font-size: .9rem;
+  white-space: nowrap;
+}
+.tl-bullets { margin-left: 18px; color: #6b7a90; }
+.tl-bullets li { margin: 4px 0; }
+
+/* Mobile tweak */
+@media (max-width: 720px) {
+  .tl-head { flex-direction: column; gap: 2px; }
+  .timeline { padding-left: 18px; }
+  .timeline::before { left: 6px; }
+  .tl-dot { left: 0; }
+}
