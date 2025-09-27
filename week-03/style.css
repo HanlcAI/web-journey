@@ -4,55 +4,97 @@ body {
   font-family: Arial, sans-serif;
   background: #f5f6fa;
   color: #333;
-  padding: 30px;
   line-height: 1.6;
-}
-
-h1 { margin-bottom: 10px; color: #2c3e50; }
-p { margin-bottom: 20px; }
-
-/* Form chính */
-.contact-form {
-  display: grid;
-  grid-template-columns: 1fr 1fr; /* 2 cột */
-  gap: 20px;
-  max-width: 700px;
-  margin: auto;
-  background: #fff;
   padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0,0,0,.08);
 }
 
-.form-group { display: flex; flex-direction: column; }
-.form-group label { margin-bottom: 6px; font-weight: bold; }
-.form-group input, .form-group textarea {
+/* Tiêu đề */
+h1 {
+  color: #2c3e50;
+  margin-bottom: 8px;
+}
+p {
+  margin-bottom: 20px;
+}
+
+/* Form */
+.contact-form {
+  max-width: 600px;
+  margin: 0 auto;
+  background: #fff;
+  padding: 20px 25px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+.form-group {
+  margin-bottom: 15px;
+}
+.form-group label {
+  font-weight: bold;
+  display: block;
+  margin-bottom: 5px;
+}
+.form-group input,
+.form-group textarea {
+  width: 100%;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 6px;
   font-size: 1rem;
 }
+.form-group textarea {
+  resize: vertical;
+}
 
-.full-width { grid-column: span 2; }
+.form-check {
+  margin-bottom: 15px;
+}
+.form-check input {
+  margin-right: 6px;
+}
 
-.form-check label { font-size: 0.9rem; }
-
-button {
-  grid-column: span 2;
+.btn {
+  display: block;
+  width: 100%;
   padding: 12px;
   background: #1abc9c;
-  color: #fff;
   border: none;
-  border-radius: 8px;
+  border-radius: 6px;
+  color: #fff;
   font-size: 1rem;
   cursor: pointer;
+  transition: background 0.25s;
 }
-button:hover { background: #16a085; }
+.btn:hover {
+  background: #16a085;
+}
 
-/* Responsive mobile */
+/* Thông báo */
+.notice {
+  max-width: 600px;
+  margin: 15px auto;
+  padding: 12px;
+  border-radius: 6px;
+  text-align: center;
+  font-weight: bold;
+}
+.notice.success {
+  background: #e8f9f3;
+  color: #1abc9c;
+  border: 1px solid #1abc9c;
+}
+.notice.error {
+  background: #fdecea;
+  color: #e74c3c;
+  border: 1px solid #e74c3c;
+}
+
+/* Responsive */
 @media (max-width: 600px) {
   .contact-form {
-    grid-template-columns: 1fr;
+    padding: 15px;
   }
-  .full-width { grid-column: span 1; }
+  .btn {
+    font-size: 0.95rem;
+  }
 }

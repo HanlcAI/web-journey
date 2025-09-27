@@ -11,68 +11,82 @@
   <p>Vui lòng điền thông tin để liên hệ với tôi.</p>
 
   <form class="contact-form" action="https://formspree.io/f/xwprvodw" method="POST">
-  <!-- các field người dùng điền -->
-  <div class="form-group">
-    <label for="name">Họ và tên:</label>
-    <input type="text" id="name" name="name" required autocomplete="name" placeholder="Nguyễn Văn A">
-  </div>
+    <div class="form-group">
+      <label for="name">Họ và tên:</label>
+      <input type="text" id="name" name="name" required autocomplete="name" placeholder="Nguyễn Văn A">
+    </div>
 
-  <div class="form-group">
-    <label for="email">Email:</label>
-    <input type="email" id="email" name="email" required autocomplete="email" placeholder="ban@example.com">
-  </div>
+    <div class="form-group">
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" required autocomplete="email" placeholder="ban@example.com">
+    </div>
 
-  <div class="form-group">
-    <label for="phone">Số điện thoại:</label>
-    <input type="tel" id="phone" name="phone" inputmode="tel" placeholder="09xx xxx xxx">
-  </div>
+    <div class="form-group">
+      <label for="phone">Số điện thoại:</label>
+      <input type="tel" id="phone" name="phone" inputmode="tel" placeholder="09xx xxx xxx">
+    </div>
 
-  <div class="form-group full-width">
-    <label for="message">Nội dung:</label>
-    <textarea id="message" name="message" rows="4" required placeholder="Bạn muốn trao đổi điều gì?"></textarea>
-  </div>
+    <div class="form-group full-width">
+      <label for="message">Nội dung:</label>
+      <textarea id="message" name="message" rows="4" required placeholder="Bạn muốn trao đổi điều gì?"></textarea>
+    </div>
 
-  <div class="form-check full-width">
-    <label><input type="checkbox" required> Tôi đồng ý với điều khoản.</label>
-  </div>
+    <div class="form-check full-width">
+      <label><input type="checkbox" required> Tôi đồng ý với điều khoản.</label>
+    </div>
 
-  <!-- ===== Hidden fields for Formspree ===== -->
-  <!-- Tiêu đề email -->
-  <input type="hidden" name="_subject" value="New message from Contact Form" />
-  <!-- Hiển thị email người gửi đúng chỗ 'Reply-To' -->
-  <input type="hidden" name="_replyto" value="" />
-  <!-- Gửi email dạng bảng đẹp hơn -->
-  <input type="hidden" name="_template" value="table" />
-  <!-- Chống bot (honeypot) -->
-  <input type="text" name="_gotcha" style="display:none" />
-  <!-- Chuyển hướng sau khi gửi thành công -->
+    <!-- Hidden fields -->
+    <input type="hidden" name="_subject" value="New message from Contact Form" />
+    <input type="hidden" name="_template" value="table" />
+
     <button type="submit" class="btn">Gửi</button>
-</form>
+  </form>
+
   <script>
-const form = document.querySelector('.contact-form');
-const notice = document.createElement('div');
-notice.className = 'notice'; form.after(notice);
+  const form = document.querySelector('.contact-form');
+  const notice = document.createElement('div');
+  notice.className = 'notice'; 
+  form.after(notice);
 
-form.addEventListener('submit', async (e) => {
-  e.preventDefault();
-  const fd = new FormData(form);
-  const name = fd.get('name')?.trim();
-  const email = fd.get('email')?.trim();
-  const msg = fd.get('message')?.trim();
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
 
-  if (!name || !email || !msg) return show('Vui lòng nhập Họ tên, Email và Nội dung.', 'error');
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return show('Email chưa đúng định dạng.', 'error');
-  if (!form.querySelector('input[type="checkbox"]').checked) return show('Bạn cần đồng ý điều khoản.', 'error');
+    const fd = new FormData(form);
+    const name  = (fd.get('name')    || '').trim();
+    const email = (fd.get('email')   || '').trim();
+    const msg   = (fd.get('message') || '').trim();
 
-  // Tạm thời chỉ hiển thị thông báo (chưa gửi đi)
-  form.reset();
-  show('Gửi thành công! Mình sẽ phản hồi sớm nhất.', 'success');
+    if (!name || !email || !msg) return show('Vui lòng nhập Họ tên, Email và Nội dung.', 'error');
+    if (!/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(email)) return show('Email chưa đúng định dạng.', 'error');
+    if (!form.querySelector('input[type="checkbox"]').checked) return show('Bạn cần đồng ý điều khoản.', 'error');
+
+    // Đảm bảo Reply-To đúng email người gửi
+    fd.set('_replyto', email);
+
+    try {
+      const res = await fetch(form.action, {
+        method: 'POST',
+        headers: { 'Accept': 'application/json' },
+        body: fd
+      });
+
+      if (res.ok) {
+        form.reset();
+        show('Gửi thành công! Mình sẽ phản hồi sớm nhất.', 'success');
+      } else {
+        const data = await res.json().catch(() => ({}));
+        const msgServer = data?.errors?.[0]?.message || 'Không gửi được. Thử lại sau nhé.';
+        show(msgServer, 'error');
+      }
+    } catch (err) {
+      show('Lỗi mạng. Vui lòng thử lại.', 'error');
+    }
+  });
 
   function show(msg, type){
     notice.textContent = msg;
     notice.className = 'notice ' + type;
   }
-});
-</script>
+  </script>
 </body>
 </html>
