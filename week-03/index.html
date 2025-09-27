@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Week 3 - Form & Layout</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>Form Liên Hệ</h1>
+  <p>Vui lòng điền thông tin để liên hệ với tôi.</p>
+
+  <form class="contact-form">
+    <div class="form-group">
+      <label for="name">Họ và tên:</label>
+      <input type="text" id="name" name="name" required>
+    </div>
+
+    <div class="form-group">
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" required>
+    </div>
+
+    <div class="form-group">
+      <label for="phone">Số điện thoại:</label>
+      <input type="tel" id="phone" name="phone">
+    </div>
+
+    <div class="form-group full-width">
+      <label for="message">Nội dung:</label>
+      <textarea id="message" name="message" rows="4" required></textarea>
+    </div>
+
+    <div class="form-check full-width">
+      <label>
+        <input type="checkbox" required>
+        Tôi đồng ý với điều khoản.
+      </label>
+    </div>
+
+    <button type="submit">Gửi</button>
+  </form>
+</body>
+</html>
