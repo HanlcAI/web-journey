@@ -57,7 +57,7 @@
     const msg   = (fd.get('message') || '').trim();
 
     if (!name || !email || !msg) return show('Vui lòng nhập Họ tên, Email và Nội dung.', 'error');
-    if (!/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(email)) return show('Email chưa đúng định dạng.', 'error');
+   if (!/^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/.test(email))   return show('Email chưa đúng định dạng.', 'error');
     if (!form.querySelector('input[type="checkbox"]').checked) return show('Bạn cần đồng ý điều khoản.', 'error');
 
     // Đảm bảo Reply-To đúng email người gửi
